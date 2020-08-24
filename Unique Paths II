@@ -1,0 +1,36 @@
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int num_row = obstacleGrid.length;
+        int num_col = obstacleGrid[0].length;
+        int dp[][] = new int[num_row][num_col];
+        for(int i=0;i<num_row;i++)
+        {
+            for(int j=0;j<num_col;j++)
+            {
+                dp[i][j] = -1;
+            }
+        }
+        int a = call(0,0,dp,num_row-1,num_col-1,obstacleGrid);
+        return a;
+    }
+    
+    public int call(int i,int j,int[][] dp,int lasti,int lastj,int[][] arr)
+    {
+        System.out.println(i+" "+j+" "+dp[i][j]+" "+lasti+" "+lastj);
+        if(arr[i][j] == 1)
+            dp[i][j] = 0;
+        else if(i==lasti && j==lastj)
+            dp[i][j] = 1;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        int num = 0;
+        if(i<lasti)
+            num += call(i+1,j,dp,lasti,lastj,arr);
+        if(j<lastj)
+            num += call(i,j+1,dp,lasti,lastj,arr);
+        dp[i][j] = num;
+        return dp[i][j];
+        
+    }
+}
