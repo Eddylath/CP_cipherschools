@@ -1,0 +1,58 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+        ListNode ptr = head;
+        while(l1!=null && l2!=null)
+        {
+            ListNode temp;
+            //System.out.println(l1.val+" "+l2.val);
+            if(l1.val<=l2.val)
+            {
+                //System.out.println("after "+l1.val+" "+l2.val);
+                temp = new ListNode(l1.val);
+                l1 = l1.next;
+            }
+            else
+            {
+                //System.out.println("before "+l1.val+" "+l2.val);
+                temp = new ListNode(l2.val);
+                l2 = l2.next;
+            }
+            ptr.next = temp;
+            ptr = temp;
+        }
+        if(l1 == null)
+        {
+            while(l2 != null)
+            {
+                ListNode temp;
+                temp = new ListNode(l2.val);
+                l2 = l2.next;
+                ptr.next = temp;
+                ptr = temp;
+            }
+        }
+        else
+        {
+            while(l1 != null)
+            {
+                ListNode temp;
+                temp = new ListNode(l1.val);
+                l1 = l1.next;
+                ptr.next = temp;
+                ptr = temp;
+            } 
+        }
+        return head.next;
+    }
+}
