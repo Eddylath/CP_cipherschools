@@ -1,0 +1,21 @@
+class Solution {
+    public int numSquares(int n) {
+        int[] dp = new int[n+1];
+        dp[0] = 0;
+        for(int iter=1;iter<=n;iter++)
+        {
+            int i = 1;
+            int max = Integer.MAX_VALUE;
+            while(iter>=i*i)
+            {
+                int a = dp[iter - i*i]+1;
+                if(a<max)
+                    max = a;
+                i++;
+            }
+            dp[iter] = max;
+        }
+        System.out.println(Arrays.toString(dp));
+        return dp[n];
+    }
+}
