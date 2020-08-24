@@ -1,0 +1,83 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> list = new ArrayList<>();
+        List<StringBuilder> temp_list = new ArrayList();
+        for(int i=0;i<n;i++)
+        {
+            temp_list.add(new StringBuilder());
+            for(int j=0;j<n;j++)
+            {
+                temp_list.get(temp_list.size()-1).append(".");
+            }
+        }
+        check(list,0,n,temp_list);
+        return list;
+    }
+    
+    void check(List<List<String>> list,int col,int len,List<StringBuilder> temp_list)
+    {
+        if(col == len)
+        {
+            list.add(new ArrayList<>());
+            for(StringBuilder a:temp_list)
+                list.get(list.size()-1).add(a.toString());
+            return;
+        }
+        for(int i=0;i<len;i++)
+        {
+            if(isSafe(temp_list,col,i,len))
+            {
+                temp_list.get(i).setCharAt(col,'Q');
+                check(list,col+1,len,temp_list);
+            }
+            temp_list.get(i).setCharAt(col,'.');
+        }
+    }
+    
+    boolean isSafe(List<StringBuilder> list,int col,int row,int n)
+    {
+        if(list.get(row).toString().indexOf('Q') != -1)
+            return false;
+        for(int i=0;i<n;i++)
+        {
+            if(list.get(i).charAt(col) == 'Q')
+                return false;
+        }
+        int a=col,b=row;
+        while(a >= 0 && b >= 0)
+        {
+            if(list.get(b).charAt(a) == 'Q')
+                return false;
+            a--;
+            b--;
+        }
+        a=col;
+        b=row;
+        while(a >= 0 && b < n)
+        {
+            if(list.get(b).charAt(a) == 'Q')
+                return false;
+            a--;
+            b++;
+        }
+        a=col;
+        b=row;
+        while(a < n && b >= 0)
+        {
+            if(list.get(b).charAt(a) == 'Q')
+                return false;
+            a++;
+            b--;
+        }
+        a=col;
+        b=row;
+        while(a < n && b < n)
+        {
+            if(list.get(b).charAt(a) == 'Q')
+                return false;
+            a++;
+            b++;
+        }
+        return true;
+    }
+}
