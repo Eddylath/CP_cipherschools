@@ -1,0 +1,23 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<>();
+        String str = "";
+        calling(0,0,str,n,list);
+        return list;
+    }
+    
+    public void calling(int p,int q,String str,int n,List<String> list)
+    {
+        if(p<q)
+            return;
+        else if(p==n)
+        {
+            for(int i=q;i<n;i++)
+                str += ")";
+            list.add(str);
+            return;
+        }
+        calling(p+1,q,str+"(",n,list);
+        calling(p,q+1,str+")",n,list);
+    }
+}
