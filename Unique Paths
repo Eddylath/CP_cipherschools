@@ -1,0 +1,28 @@
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] arr = new int[m][n];
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+                arr[i][j] = Integer.MAX_VALUE;
+        }
+        return todo(0,0,m,n,arr);
+    }
+    
+    public int todo(int tempm,int tempn, int m, int n,int[][] arr)
+    {
+        if(arr[tempm][tempn]!=Integer.MAX_VALUE)
+            return arr[tempm][tempn];
+        if(tempm==m-1 && tempn==n-1)
+            return 1;
+        int a = 0, b = 0;
+        if(tempm<m-1)
+            a = todo(tempm+1,tempn,m,n,arr);
+        if(tempn<n-1)
+            b = todo(tempm,tempn+1,m,n,arr);
+        arr[tempm][tempn]=a+b;
+        return arr[tempm][tempn];
+            
+    }
+}
+
