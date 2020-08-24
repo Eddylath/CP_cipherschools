@@ -1,0 +1,20 @@
+class Solution {
+    public int trap(int[] height) {
+        int N = height.length;
+        if(N<3)
+            return 0;
+        int[] lhs = new int[N];
+        int[] rhs = new int[N];
+        lhs[0] = height[0];
+        rhs[N-1] = height[N-1];
+        for(int i=1;i<N;i++)
+        {
+            lhs[i] = Math.max(height[i],lhs[i-1]);
+            rhs[N-1-i] = Math.max(height[N-1-i],rhs[N-i]);
+        }
+        int count = 0;
+        for(int i=1;i<N;i++)
+            count += Math.min(lhs[i],rhs[i]) - height[i];
+        return count;
+    }
+}
